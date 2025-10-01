@@ -1,4 +1,4 @@
-# ai-agent-portfolio
+
 # AI & Automation Portfolio
 
 Welcome! This portfolio highlights selected AI workflows and automation projects I’ve designed with **MindStudio** and other tools.  
