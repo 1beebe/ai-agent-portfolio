@@ -4,14 +4,14 @@
 Welcome! This portfolio highlights selected AI workflows and automation projects I’ve designed with **MindStudio** and other tools.  
 Each project explores how applied AI can support learning, research, and workflow automation.
 
-Most live agents are not exposed - repos include documentation, sample outputs, and demo assets. Demos are available upon request.
+Repos include documentation, sample outputs, and demo assets. Demos are available upon request.
 
 ---
 
 ## 📂 Projects
 
 - [Analytics Buddy](https://github.com/1beebe/analytics-buddy)  
-  → Browser extension + MindStudio workflow for personal social media analytics.  
+  → Browser extension + MindStudio workflow for personal social media analytics. Grab analytics from a social media platform, update your spreadsheet, and return actionable insights. 
 
 - [Lakoff Lens (Rhetoric & Framing Analyzer)](https://github.com/1beebe/lakoff-lens)  
   → Prototype agent that tags sentiment and metaphorical framing in political text, inspired by George Lakoff. Live agent available (MindStudio account required). 
