@@ -13,12 +13,6 @@ Most live agents are not exposed — repos include documentation, sample outputs
 - [Analytics Buddy](https://github.com/1beebe/analytics-buddy)  
   → Browser extension + MindStudio workflow for personal social media analytics.  
 
-- Job Description Screener & Tracker *(coming soon)* 
-  → Normalizes job descriptions into structured data, scores for fit, and exports to a job tracker.  
-
-- Customer Learning Hub Agent *(coming soon)*  
-  → AI workflow prototype for customer onboarding and enablement. Documentation and sample outputs in progress.  
-
 - [Lakoff Lens (Rhetoric & Framing Analyzer)](https://github.com/1beebe/lakoff-lens)  
   → Prototype agent that tags sentiment and metaphorical framing in political text, inspired by George Lakoff.  
 
