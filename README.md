@@ -2,7 +2,8 @@
 # AI & Automation Portfolio
 
 Welcome! This portfolio highlights selected AI workflows and automation projects I’ve designed with **MindStudio** and other tools.  
-Each project explores how applied AI can support learning, research, and workflow automation.
+
+Each project explores how applied AI can support learning, research, or workflow automation.
 
 Repos include documentation, sample outputs, and demo assets. Demos are available upon request.
 
