@@ -30,7 +30,8 @@ Each project repo contains:
 
 ## 🎯 About My Work
 I focus on **customer education, partner enablement, and applied AI for learning design**.  
-My goal is to make AI workflows not just functional, but also **documented, ethical, and learnable** — tools that improve both efficiency and understanding.  
+
+My goal is to create functional and elegant AI workflows, focusing on **documented, ethical, and learnable** — tools that improve both efficiency and understanding.  
 
 📩 Interested in a walkthrough? Let’s talk: [Book a chat](https://calendly.com/ligaya-b/chat)  
 
