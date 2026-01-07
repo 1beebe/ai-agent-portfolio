@@ -1,5 +1,5 @@
 
-# AI & Automation Portfolio
+# AI Agent & Automation Portfolio
 
 Welcome! This portfolio highlights selected AI agents, workflows and automation projects I’ve designed with **MindStudio** and other tools.  
 
@@ -10,6 +10,9 @@ Repos include documentation, sample outputs, and demo assets. Demos are availabl
 ---
 
 ## 📂 Projects
+
+- [Document Processing & Archival Agent](https://github.com/1beebe/document-archivist)  
+  → A MindStudio AI agent that automatically processes PDF documents from email attachments, cleans up OCR text, and organizes documents with structured metadata.
 
 - [Analytics Buddy](https://github.com/1beebe/analytics-buddy)  
   → Browser extension + MindStudio workflow for personal social media analytics. Grab analytics from a social media platform, update your spreadsheet, and return actionable insights. 
