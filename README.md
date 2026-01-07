@@ -1,7 +1,7 @@
 
 # AI Agent & Automation Portfolio
 
-Welcome! This portfolio highlights selected AI agents, workflows and automation projects I’ve designed with **MindStudio** and other tools.  
+Welcome! This portfolio highlights selected AI agents, workflows and automation projects I’ve designed with **MindStudio**.  
 
 Each project explores how applied AI can support learning, research, or workflow automation.
 
