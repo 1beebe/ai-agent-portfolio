@@ -18,7 +18,7 @@ Repos include documentation, sample outputs, and demo assets. Demos are availabl
   → Browser extension + MindStudio workflow for personal social media analytics. Grab analytics from a social media platform, update your spreadsheet, and return actionable insights. 
 
 - [Lakoff Lens (Rhetoric & Framing Analyzer)](https://github.com/1beebe/lakoff-lens)  
-  → Prototype agent that tags sentiment and metaphorical framing in political text, inspired by George Lakoff. Live agent available (MindStudio account required). 
+  → Prototype agent that tags sentiment and metaphorical framing in political text, inspired by George Lakoff. Live agent available. 
 
 ---
 
