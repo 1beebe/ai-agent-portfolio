@@ -1,15 +1,24 @@
 
 # AI Agent & Automation Portfolio
 
-Welcome! This portfolio highlights selected AI agents, workflows and automation projects I’ve designed with **MindStudio**.  
+**Building AI workflows that are functional, transparent, and actually teachable.**
 
-Each project explores how applied AI can support learning, research, or workflow automation.
 
-Repos include documentation, sample outputs, and demo assets. Demos are available upon request.
+---
+## 🎯 The Problem I'm Solving
 
+**AI tools are powerful, but most implementations are either too simplistic to be useful or too complex to understand and maintain.**
+
+I build AI agents and workflows that bridge this gap — creating solutions that are:
+- **Functional** → Actually solve real problems in education, content workflows, and research
+- **Transparent** → Documented prompts and logic you can learn from and adapt
+- **Practical** → Production-ready examples with real inputs/outputs, not just demos
+
+My work focuses on **customer education, partner enablement, and applied AI for learning design** — proving that AI automation can improve both efficiency *and* understanding.
 ---
 
 ## 📂 Projects
+**Here's how I apply these principles:**
 
 - [Document Processing & Archival Agent](https://github.com/1beebe/document-archivist)  
   → A MindStudio AI agent that automatically processes PDF documents from email attachments, cleans up OCR text, and organizes documents with structured metadata.
@@ -31,10 +40,7 @@ Each project repo contains:
 
 ---
 
-## 🎯 About My Work
-I focus on **customer education, partner enablement, and applied AI for learning design**.  
-
-My goal is to create functional and elegant AI workflows, focusing on **documented, ethical, and learnable** — tools that improve both efficiency and understanding.  
-
-📩 Interested in a walkthrough? Let’s talk: [Book a chat](https://calendly.com/ligaya-b/chat)  
+## 💬 Want to Connect?
+Interested in collaborating, learning more about a specific project, or discussing AI in education/enablement?  
+📩 [Book a chat](https://calendly.com/ligaya-b/chat)
 
