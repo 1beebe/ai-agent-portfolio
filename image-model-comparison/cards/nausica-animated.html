@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nausicaä Solarpunk Image Model Comparison</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: sans-serif;
+  }
+  canvas {
+    display: block;
+    image-rendering: pixelated;
+  }
+  #rec-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #e33;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    transition: background 0.2s;
+  }
+  #rec-btn:disabled { background: #555; cursor: default; }
+</style>
+</head>
+<body>
+<canvas id="c" width="400" height="600"></canvas>
+<button id="rec-btn">⏺ Record one loop</button>
+<script>
+const COLS = 2, ROWS = 3;
+const CELL_W = 200, CELL_H = 200;
+const W = COLS * CELL_W, H = ROWS * CELL_H;
+
+const REVEAL_DUR = 4000;   // ms: noise → image
+const HOLD_DUR   = 1500;   // ms: full image hold
+const FADE_DUR   = 500;    // ms: image → noise fade
+const CYCLE      = REVEAL_DUR + HOLD_DUR + FADE_DUR;
+
+const MODELS = [
+  // Row 1
+  { name: 'Flux Pro 2',     url: 'https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/220ffebb-bb57-480c-90ca-f94fef9da933.png' },
+  { name: 'Kling Image O3', url: 'https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/5654f09c-3ddf-47f5-8235-d8aa8c6b0cf3.png' },
+  // Row 2 (middle)
+  { name: 'Gemini 3 Pro',   url: 'https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/761eb18f-adf2-49ed-a863-956635a56f1b.png' },
+  { name: 'GPT Image 1.5',  url: 'https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/3d7ac2d2-6d88-4a2f-8bab-6b7b74e04e0b.png' },
+  // Row 3
+  { name: 'Ideogram V3',    url: 'https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/7218fd30-abfe-4bfe-bd14-7317767f338d.png' },
+  { name: 'Stable Ultra',   url: 'https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/da2514e5-17fb-494b-9566-904032dc77bf.png' },
+];
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+const offscreens = MODELS.map(() => {
+  const oc = document.createElement('canvas');
+  oc.width = CELL_W; oc.height = CELL_H;
+  return oc;
+});
+
+const revealOrder = MODELS.map(() => {
+  const arr = new Float32Array(CELL_W * CELL_H);
+  for (let i = 0; i < arr.length; i++) arr[i] = Math.random();
+  return arr;
+});
+
+const imagePixels = new Array(MODELS.length).fill(null);
+let loadedCount = 0;
+const totalImages = MODELS.length;
+
+function onImageLoaded(idx, img) {
+  const oc = offscreens[idx];
+  const octx = oc.getContext('2d');
+  // Cover: scale to fill, center, no distortion
+  const scale = Math.max(CELL_W / img.naturalWidth, CELL_H / img.naturalHeight);
+  const sw = img.naturalWidth * scale;
+  const sh = img.naturalHeight * scale;
+  const sx = (CELL_W - sw) / 2;
+  const sy = (CELL_H - sh) / 2;
+  octx.drawImage(img, sx, sy, sw, sh);
+  imagePixels[idx] = octx.getImageData(0, 0, CELL_W, CELL_H).data;
+  loadedCount++;
+  if (loadedCount === totalImages) startAnimation();
+}
+
+MODELS.forEach((m, idx) => {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => onImageLoaded(idx, img);
+  img.onerror = () => {
+    const oc = offscreens[idx];
+    const octx = oc.getContext('2d');
+    const hues = [270, 30, 120, 200, 340, 60];
+    octx.fillStyle = `hsl(${hues[idx]}, 60%, 50%)`;
+    octx.fillRect(0, 0, CELL_W, CELL_H);
+    octx.fillStyle = 'rgba(255,255,255,0.85)';
+    octx.font = 'bold 13px sans-serif';
+    octx.textAlign = 'center';
+    octx.fillText(m.name, CELL_W / 2, CELL_H / 2);
+    imagePixels[idx] = octx.getImageData(0, 0, CELL_W, CELL_H).data;
+    loadedCount++;
+    if (loadedCount === totalImages) startAnimation();
+  };
+  img.src = m.url;
+});
+
+ctx.fillStyle = '#111';
+ctx.fillRect(0, 0, W, H);
+ctx.fillStyle = '#555';
+ctx.font = '16px sans-serif';
+ctx.textAlign = 'center';
+ctx.fillText('Loading images…', W / 2, H / 2);
+
+const frameImageData = ctx.createImageData(W, H);
+const buf = frameImageData.data;
+
+let animStart = null;
+
+function easeInOut(t) {
+  return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+}
+
+function drawFrame(ts) {
+  if (!animStart) animStart = ts;
+  const elapsed = (ts - animStart) % CYCLE;
+
+  let progress, noiseAlpha;
+  if (elapsed < REVEAL_DUR) {
+    progress   = easeInOut(elapsed / REVEAL_DUR);
+    noiseAlpha = 1;
+  } else if (elapsed < REVEAL_DUR + HOLD_DUR) {
+    progress   = 1;
+    noiseAlpha = 1;
+  } else {
+    progress   = 1;
+    noiseAlpha = 1 - (elapsed - REVEAL_DUR - HOLD_DUR) / FADE_DUR;
+  }
+
+  for (let cellIdx = 0; cellIdx < MODELS.length; cellIdx++) {
+    const cellCol = cellIdx % COLS;
+    const cellRow = Math.floor(cellIdx / COLS);
+    const originX = cellCol * CELL_W;
+    const originY = cellRow * CELL_H;
+    const imgData  = imagePixels[cellIdx];
+    const revOrd   = revealOrder[cellIdx];
+
+    for (let py = 0; py < CELL_H; py++) {
+      for (let px = 0; px < CELL_W; px++) {
+        const pixelIdx  = py * CELL_W + px;
+        const canvasX   = originX + px;
+        const canvasY   = originY + py;
+        const bufOffset = (canvasY * W + canvasX) * 4;
+
+        const revealed = progress > revOrd[pixelIdx];
+
+        if (revealed && noiseAlpha >= 1) {
+          const srcOff = pixelIdx * 4;
+          buf[bufOffset]     = imgData[srcOff];
+          buf[bufOffset + 1] = imgData[srcOff + 1];
+          buf[bufOffset + 2] = imgData[srcOff + 2];
+          buf[bufOffset + 3] = 255;
+        } else if (revealed && noiseAlpha < 1) {
+          const srcOff = pixelIdx * 4;
+          const nr = Math.random() * 255 | 0;
+          const ng = Math.random() * 255 | 0;
+          const nb = Math.random() * 255 | 0;
+          const a = noiseAlpha;
+          buf[bufOffset]     = imgData[srcOff]     * a + nr * (1 - a) | 0;
+          buf[bufOffset + 1] = imgData[srcOff + 1] * a + ng * (1 - a) | 0;
+          buf[bufOffset + 2] = imgData[srcOff + 2] * a + nb * (1 - a) | 0;
+          buf[bufOffset + 3] = 255;
+        } else {
+          buf[bufOffset]     = Math.random() * 255 | 0;
+          buf[bufOffset + 1] = Math.random() * 255 | 0;
+          buf[bufOffset + 2] = Math.random() * 255 | 0;
+          buf[bufOffset + 3] = 255;
+        }
+      }
+    }
+  }
+
+  ctx.putImageData(frameImageData, 0, 0);
+
+  ctx.font = 'bold 11px sans-serif';
+  ctx.textAlign = 'center';
+  MODELS.forEach((m, cellIdx) => {
+    const cellCol = cellIdx % COLS;
+    const cellRow = Math.floor(cellIdx / COLS);
+    const cx = cellCol * CELL_W + CELL_W / 2;
+    const cy = (cellRow + 1) * CELL_H - 8;
+    const labelAlpha = Math.min(progress * 3, 1) * noiseAlpha;
+    if (labelAlpha > 0) {
+      ctx.fillStyle = `rgba(0,0,0,${0.45 * labelAlpha})`;
+      ctx.fillRect(cellCol * CELL_W, (cellRow + 1) * CELL_H - 22, CELL_W, 22);
+      ctx.fillStyle = `rgba(255,255,255,${labelAlpha})`;
+      ctx.fillText(m.name, cx, cy);
+    }
+  });
+
+  requestAnimationFrame(drawFrame);
+}
+
+function startAnimation() {
+  requestAnimationFrame(drawFrame);
+}
+
+// Recording
+document.getElementById('rec-btn').addEventListener('click', function () {
+  const btn = this;
+  btn.disabled = true;
+  btn.textContent = '⏺ Recording…';
+
+  // Reset animation to start of cycle
+  animStart = null;
+
+  const stream = canvas.captureStream(60);
+  const recorder = new MediaRecorder(stream, { mimeType: 'video/webm; codecs=vp9' });
+  const chunks = [];
+
+  recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+  recorder.onstop = () => {
+    const blob = new Blob(chunks, { type: 'video/webm' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'nausica-diffusion.webm';
+    a.click();
+    btn.textContent = '✓ Downloaded!';
+    setTimeout(() => { btn.disabled = false; btn.textContent = '⏺ Record one loop'; }, 2500);
+  };
+
+  recorder.start();
+  setTimeout(() => recorder.stop(), CYCLE + 100); // +100ms buffer
+});
+</script>
+</body>
+</html>
