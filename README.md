@@ -37,7 +37,7 @@ My work focuses on **customer education, partner enablement, and applied AI for 
   **Models compared:** Gemini 3 Pro Image · Flux Pro 2 · Kling Image O3 · Ideogram V3 · Stable Image Ultra · GPT Image 1.5
 
   **Live gallery outputs** (generated assets delivered to users):
-  [Cakes](https://files.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/documents/5af0a100-d375-4f4a-bd28-25896205e4cb.html) · [Flowers](https://files.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/documents/8471cbd1-b168-4a16-bc6a-40400d389c50.html) · [Noodles](https://files.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/documents/ebb63f6d-efe4-4c5f-8df2-1446ced4894e.html) · [Scandi Living Room](https://files.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/documents/7d60f2c3-6045-48d5-84e3-376259254624.html) · [Nausica Solarpunk](https://files.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/documents/47f1b8c0-948b-4bfb-abd3-fab5648788c9.html) · [Chicken in Shuhe](https://files.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/documents/037ecfb7-4e02-4620-bbec-262e1adc644e.html) · [D&D Mage](https://files.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/documents/dfa77006-8a9f-440e-95ae-5f64a287c51d.html)
+  [Nausica Solarpunk](https://files.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/documents/47f1b8c0-948b-4bfb-abd3-fab5648788c9.html) · [D&D Mage](https://files.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/documents/dfa77006-8a9f-440e-95ae-5f64a287c51d.html) · [Scandi Living Room](https://files.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/documents/7d60f2c3-6045-48d5-84e3-376259254624.html)
 
 ---
 
