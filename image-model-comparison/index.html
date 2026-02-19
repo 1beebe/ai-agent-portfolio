@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Image Model Comparison — MindStudio</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      color: #eee;
+      font-family: system-ui, sans-serif;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 0.8rem;
+      color: #666;
+      letter-spacing: 0.05em;
+    }
+
+    /* Main comparison grid: 1 label col + 6 model cols */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 130px repeat(6, 1fr);
+      gap: 6px;
+    }
+
+    /* Sticky header row */
+    .col-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #111;
+      padding: 0.6rem 0.3rem 1rem;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #aaa;
+    }
+
+    .col-header.empty { background: transparent; }
+
+    /* Row label */
+    .row-label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #666;
+      text-align: right;
+      line-height: 1.3;
+    }
+
+    .row-sep {
+      grid-column: 1 / -1;
+      height: 12px;
+    }
+
+    .img-cell img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 5px;
+      display: block;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      background: #222;
+    }
+
+    .img-cell img:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 0 2px #fff4;
+    }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.93);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    #lightbox.active { display: flex; }
+
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 60px rgba(0,0,0,0.8);
+    }
+
+    #lightbox-meta { text-align: center; line-height: 1.6; }
+    #lightbox-model { font-size: 0.95rem; font-weight: 600; color: #fff; letter-spacing: 0.05em; }
+    #lightbox-group { font-size: 0.75rem; color: #888; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    #lightbox-close {
+      position: fixed; top: 1.25rem; right: 1.5rem;
+      font-size: 2rem; color: #888; cursor: pointer;
+      background: none; border: none; line-height: 1;
+    }
+    #lightbox-close:hover { color: #fff; }
+
+    #lightbox-prev, #lightbox-next {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      font-size: 2.5rem; color: #666; cursor: pointer;
+      background: none; border: none; padding: 0 1rem; line-height: 1;
+    }
+    #lightbox-prev:hover, #lightbox-next:hover { color: #fff; }
+    #lightbox-prev { left: 0.5rem; }
+    #lightbox-next { right: 0.5rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>AI Image Model Comparison</h1>
+  <p>Same prompt · 6 models · 9 subjects &nbsp;·&nbsp; Built with MindStudio</p>
+</header>
+
+<div class="compare-grid">
+
+  <!-- Column headers -->
+  <div class="col-header empty"></div>
+  <div class="col-header">Gemini 3<br>Pro Image</div>
+  <div class="col-header">Flux<br>Pro 2</div>
+  <div class="col-header">Kling<br>Image O3</div>
+  <div class="col-header">Ideogram<br>V3</div>
+  <div class="col-header">Stable Image<br>Ultra</div>
+  <div class="col-header">GPT<br>Image 1.5</div>
+
+  <!-- CAKES -->
+  <div class="row-label">Cakes</div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/d51a27a3-8243-480b-a507-f9a182a27910.png" data-model="Gemini 3 Pro Image" data-group="Cakes"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/78cf8769-3652-4a84-8a8c-02e70b806c65.png" data-model="Flux Pro 2" data-group="Cakes"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/e8c4a093-73ca-4d3c-a628-e154b8bb6e25.png" data-model="Kling Image O3" data-group="Cakes"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/8e156a81-8498-4653-ad03-23d8ff06a50a.png" data-model="Ideogram V3" data-group="Cakes"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/fa4c0940-8f87-4d6e-8b09-5cd5f6f57eeb.png" data-model="Stable Image Ultra" data-group="Cakes"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/22e3569a-1b86-44b1-bdbf-64c2236af30c.png" data-model="GPT Image 1.5" data-group="Cakes"></div>
+
+  <div class="row-sep"></div>
+
+  <!-- FLOWERS -->
+  <div class="row-label">Flowers</div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/5c8c5a75-3530-400d-8277-77c383da6518.png" data-model="Gemini 3 Pro Image" data-group="Flowers"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/b641b03d-9848-4a92-8a17-a3813abe2a70.png" data-model="Flux Pro 2" data-group="Flowers"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/d42cf8b4-5d00-4f19-bac0-1d29177002cf.png" data-model="Kling Image O3" data-group="Flowers"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/3119b79b-7db3-4d9c-9fd0-fd6049d5915e.png" data-model="Ideogram V3" data-group="Flowers"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/dac86df7-b583-4d62-beea-b79578edabc7.png" data-model="Stable Image Ultra" data-group="Flowers"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/65f05d0c-38cd-475e-a132-09ac0e39d3f7.png" data-model="GPT Image 1.5" data-group="Flowers"></div>
+
+  <div class="row-sep"></div>
+
+  <!-- LIGHTHOUSES -->
+  <div class="row-label">Lighthouses</div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/bd007430-270b-4bc8-8c1e-2750d3f6eca8.png" data-model="Gemini 3 Pro Image" data-group="Lighthouses"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/b79415cc-ceb9-4dc8-9d3c-184d72aa5f9a.png" data-model="Flux Pro 2" data-group="Lighthouses"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/6680155a-a126-454e-bbad-3a455cc78a54.png" data-model="Kling Image O3" data-group="Lighthouses"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/52f472ff-43be-442a-9ef4-3385c3c1838f.png" data-model="Ideogram V3" data-group="Lighthouses"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/dffad7e8-d452-4bb0-8d41-f215049eca7b.png" data-model="Stable Image Ultra" data-group="Lighthouses"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/bb265580-1c13-4beb-87c2-ae2fdf2e9e97.png" data-model="GPT Image 1.5" data-group="Lighthouses"></div>
+
+  <div class="row-sep"></div>
+
+  <!-- MODERN -->
+  <div class="row-label">Modern</div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/e6e27ca8-d5d7-4465-b7d7-c58f024ccff2/generated-images/f6f03bf5-321b-4b1e-a77b-8a20ca7a81ad.png" data-model="Gemini 3 Pro Image" data-group="Modern"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/e6e27ca8-d5d7-4465-b7d7-c58f024ccff2/generated-images/de4e2114-e54d-4e6d-9cd4-87ec208b8bdc.png" data-model="Flux Pro 2" data-group="Modern"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/e6e27ca8-d5d7-4465-b7d7-c58f024ccff2/generated-images/6a8c35ce-c6fe-4619-8043-3a47e4f4c5c5.png" data-model="Kling Image O3" data-group="Modern"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/e6e27ca8-d5d7-4465-b7d7-c58f024ccff2/generated-images/d066aa25-cba5-427c-a26e-1ec503ee86b9.png" data-model="Ideogram V3" data-group="Modern"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/e6e27ca8-d5d7-4465-b7d7-c58f024ccff2/generated-images/9880b3b1-c61e-47a2-910b-4105e43a8e68.png" data-model="Stable Image Ultra" data-group="Modern"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/e6e27ca8-d5d7-4465-b7d7-c58f024ccff2/generated-images/1166fb8d-7ced-41e5-99a6-52802b434798.png" data-model="GPT Image 1.5" data-group="Modern"></div>
+
+  <div class="row-sep"></div>
+
+  <!-- NOODLES -->
+  <div class="row-label">Noodles</div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/6dae816b-6e5b-4455-ae6e-86b0f5e9f5b0.png" data-model="Gemini 3 Pro Image" data-group="Noodles"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/d890db76-75d0-43f8-8669-5e1dce7bb9c5.png" data-model="Flux Pro 2" data-group="Noodles"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/4981f00c-a0cd-426e-8cf1-767d69533a82.png" data-model="Kling Image O3" data-group="Noodles"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/ebc8bf8b-f3d6-4d95-b774-1cfd2aeb7419.png" data-model="Ideogram V3" data-group="Noodles"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/29fccb1d-ea83-4317-b5fa-02b279ad596b.png" data-model="Stable Image Ultra" data-group="Noodles"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/6b93e1f8-52bc-42c9-9fae-d2d465e26e51.png" data-model="GPT Image 1.5" data-group="Noodles"></div>
+
+  <div class="row-sep"></div>
+
+  <!-- SCANDI LIVING ROOM -->
+  <div class="row-label">Scandi Living Room</div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/e0df3c6a-b0ca-4291-bf76-3c890e47a27a.png" data-model="Gemini 3 Pro Image" data-group="Scandi Living Room"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/43f80ca1-f97c-44cd-a811-d47038625edb.png" data-model="Flux Pro 2" data-group="Scandi Living Room"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/b7723069-ee95-463f-8c8d-2d4480ae7de5.png" data-model="Kling Image O3" data-group="Scandi Living Room"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/d40d22a0-2536-47ae-959c-a81c2c501601.png" data-model="Ideogram V3" data-group="Scandi Living Room"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/eec9e7c6-b17c-4a74-8b37-6cbc886c11a1.png" data-model="Stable Image Ultra" data-group="Scandi Living Room"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/0fb8d770-1c36-4df7-a2af-7d4222ed0148.png" data-model="GPT Image 1.5" data-group="Scandi Living Room"></div>
+
+  <div class="row-sep"></div>
+
+  <!-- NAUSICA -->
+  <div class="row-label">Nausica Solarpunk</div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/761eb18f-adf2-49ed-a863-956635a56f1b.png" data-model="Gemini 3 Pro Image" data-group="Nausica Solarpunk"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/220ffebb-bb57-480c-90ca-f94fef9da933.png" data-model="Flux Pro 2" data-group="Nausica Solarpunk"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/5654f09c-3ddf-47f5-8235-d8aa8c6b0cf3.png" data-model="Kling Image O3" data-group="Nausica Solarpunk"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/7218fd30-abfe-4bfe-bd14-7317767f338d.png" data-model="Ideogram V3" data-group="Nausica Solarpunk"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/da2514e5-17fb-494b-9566-904032dc77bf.png" data-model="Stable Image Ultra" data-group="Nausica Solarpunk"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/3d7ac2d2-6d88-4a2f-8bab-6b7b74e04e0b.png" data-model="GPT Image 1.5" data-group="Nausica Solarpunk"></div>
+
+  <div class="row-sep"></div>
+
+  <!-- CHICKEN SHUHE -->
+  <div class="row-label">Chicken in Shuhe</div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/c1e100c6-8b88-45a9-9971-cde3c0b73094.png" data-model="Gemini 3 Pro Image" data-group="Chicken in Shuhe"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/b0c0a8c7-9136-4e23-a15d-da5f41f5c3c6.png" data-model="Flux Pro 2" data-group="Chicken in Shuhe"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/bb746d3b-646a-43e7-a60a-fa0c6e61b5e4.png" data-model="Kling Image O3" data-group="Chicken in Shuhe"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/635e71e1-4283-4f79-8fff-f5deedba888b.png" data-model="Ideogram V3" data-group="Chicken in Shuhe"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/27e40b14-24c4-468c-844c-f67d9d2c4ccf.png" data-model="Stable Image Ultra" data-group="Chicken in Shuhe"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/111719b3-e225-4280-bc41-a0ec3b3c6bcd.png" data-model="GPT Image 1.5" data-group="Chicken in Shuhe"></div>
+
+  <div class="row-sep"></div>
+
+  <!-- DND MAGE -->
+  <div class="row-label">D&amp;D Mage</div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/ec285954-d349-4012-9773-3d95e4dd13c1.png" data-model="Gemini 3 Pro Image" data-group="D&D Mage"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/e6b52312-5ed1-4107-9028-b00a2d42bf0e.png" data-model="Flux Pro 2" data-group="D&D Mage"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/c4170823-f969-4650-8c84-757343be601d.png" data-model="Kling Image O3" data-group="D&D Mage"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/cdb538d0-01cb-4f5c-a206-219b4ee2c120.png" data-model="Ideogram V3" data-group="D&D Mage"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/90ceaa5b-5bcd-4c38-b89e-614876fd76ae.png" data-model="Stable Image Ultra" data-group="D&D Mage"></div>
+  <div class="img-cell"><img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/b3fe2bdc-8d32-4880-a9ec-c9bd62bd9eca.png" data-model="GPT Image 1.5" data-group="D&D Mage"></div>
+
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <button id="lightbox-close">&times;</button>
+  <button id="lightbox-prev">&#8249;</button>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-meta">
+    <div id="lightbox-model"></div>
+    <div id="lightbox-group"></div>
+  </div>
+  <button id="lightbox-next">&#8250;</button>
+</div>
+
+<script>
+  const allImages = Array.from(document.querySelectorAll('.img-cell img'));
+  let currentIndex = 0;
+
+  const lightbox = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lightbox-img');
+  const lbModel  = document.getElementById('lightbox-model');
+  const lbGroup  = document.getElementById('lightbox-group');
+
+  function openLightbox(index) {
+    currentIndex = index;
+    const img = allImages[index];
+    lbImg.src = img.src;
+    lbModel.textContent = img.dataset.model;
+    lbGroup.textContent = img.dataset.group;
+    lightbox.classList.add('active');
+  }
+
+  function closeLightbox() { lightbox.classList.remove('active'); }
+
+  function navigate(dir) {
+    currentIndex = (currentIndex + dir + allImages.length) % allImages.length;
+    openLightbox(currentIndex);
+  }
+
+  allImages.forEach((img, i) => img.addEventListener('click', () => openLightbox(i)));
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-prev').addEventListener('click', () => navigate(-1));
+  document.getElementById('lightbox-next').addEventListener('click', () => navigate(1));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'ArrowLeft')  navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+    if (e.key === 'Escape')     closeLightbox();
+  });
+</script>
+
+</body>
+</html>
