@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A lone lighthouse on a rocky cliff at night during a storm, dramatic lightning illuminating crashing waves, cinematic photography — Model Comparison</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f0f0f;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border-radius: 16px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 900px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    }
+
+    .card-header {
+      padding: 1.5rem 1.75rem 1.25rem;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #555;
+      margin-bottom: 0.4rem;
+    }
+
+    .prompt {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #f0f0f0;
+      line-height: 1.4;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      padding: 3px;
+    }
+
+    .cell {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cell-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.4rem 0.5rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.75));
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .card-footer {
+      padding: 0.75rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .footer-models {
+      font-size: 0.6rem;
+      color: #444;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-brand {
+      font-size: 0.6rem;
+      color: #444;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="label">Prompt</div>
+      <div class="prompt">A lone lighthouse on a rocky cliff at night during a storm, dramatic lightning illuminating crashing waves, cinematic photography</div>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/bd007430-270b-4bc8-8c1e-2750d3f6eca8.png" alt="Gemini 3 Pro Image" loading="lazy">
+        <div class="cell-label">Gemini 3 Pro Image</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/b79415cc-ceb9-4dc8-9d3c-184d72aa5f9a.png" alt="Flux Pro 2" loading="lazy">
+        <div class="cell-label">Flux Pro 2</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/6680155a-a126-454e-bbad-3a455cc78a54.png" alt="Kling Image O3" loading="lazy">
+        <div class="cell-label">Kling Image O3</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/52f472ff-43be-442a-9ef4-3385c3c1838f.png" alt="Ideogram V3" loading="lazy">
+        <div class="cell-label">Ideogram V3</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/dffad7e8-d452-4bb0-8d41-f215049eca7b.png" alt="Stable Image Ultra" loading="lazy">
+        <div class="cell-label">Stable Image Ultra</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/bb265580-1c13-4beb-87c2-ae2fdf2e9e97.png" alt="GPT Image 1.5" loading="lazy">
+        <div class="cell-label">GPT Image 1.5</div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <div class="footer-models">6 models · same prompt · parallel generation</div>
+      <div class="footer-brand">Built with MindStudio</div>
+    </div>
+  </div>
+</body>
+</html>

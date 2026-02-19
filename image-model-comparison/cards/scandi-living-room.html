@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A nordic style living room, minimalistic furniture, bright sunny, high ceilings with lots of plants — Model Comparison</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f0f0f;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border-radius: 16px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 900px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    }
+
+    .card-header {
+      padding: 1.5rem 1.75rem 1.25rem;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #555;
+      margin-bottom: 0.4rem;
+    }
+
+    .prompt {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #f0f0f0;
+      line-height: 1.4;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      padding: 3px;
+    }
+
+    .cell {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cell-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.4rem 0.5rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.75));
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .card-footer {
+      padding: 0.75rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .footer-models {
+      font-size: 0.6rem;
+      color: #444;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-brand {
+      font-size: 0.6rem;
+      color: #444;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="label">Prompt</div>
+      <div class="prompt">A nordic style living room, minimalistic furniture, bright sunny, high ceilings with lots of plants</div>
+    </div>
+    <div class="grid">
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/e0df3c6a-b0ca-4291-bf76-3c890e47a27a.png" alt="Gemini 3 Pro Image" loading="lazy">
+        <div class="cell-label">Gemini 3 Pro Image</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/43f80ca1-f97c-44cd-a811-d47038625edb.png" alt="Flux Pro 2" loading="lazy">
+        <div class="cell-label">Flux Pro 2</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/b7723069-ee95-463f-8c8d-2d4480ae7de5.png" alt="Kling Image O3" loading="lazy">
+        <div class="cell-label">Kling Image O3</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/d40d22a0-2536-47ae-959c-a81c2c501601.png" alt="Ideogram V3" loading="lazy">
+        <div class="cell-label">Ideogram V3</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/eec9e7c6-b17c-4a74-8b37-6cbc886c11a1.png" alt="Stable Image Ultra" loading="lazy">
+        <div class="cell-label">Stable Image Ultra</div>
+      </div>
+      <div class="cell">
+        <img src="https://images.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/generated-images/0fb8d770-1c36-4df7-a2af-7d4222ed0148.png" alt="GPT Image 1.5" loading="lazy">
+        <div class="cell-label">GPT Image 1.5</div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <div class="footer-models">6 models · same prompt · parallel generation</div>
+      <div class="footer-brand">Built with MindStudio</div>
+    </div>
+  </div>
+</body>
+</html>
