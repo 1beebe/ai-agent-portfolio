@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flower Image Model Comparison</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: sans-serif;
+  }
+  canvas {
+    display: block;
+    image-rendering: pixelated;
+  }
+</style>
+</head>
+<body>
+<canvas id="c" width="600" height="400"></canvas>
+<script>
+const COLS = 3, ROWS = 2;
+const CELL_W = 200, CELL_H = 200;
+const W = COLS * CELL_W, H = ROWS * CELL_H;
+
+const REVEAL_DUR = 4000;   // ms: noise → image
+const HOLD_DUR   = 1500;   // ms: full image hold
+const FADE_DUR   = 500;    // ms: image → noise fade
+const CYCLE      = REVEAL_DUR + HOLD_DUR + FADE_DUR;
+
+const MODELS = [
+  { name: 'Gemini 3 Pro',    url: 'https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/5c8c5a75-3530-400d-8277-77c383da6518.png' },
+  { name: 'Flux Pro 2',      url: 'https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/b641b03d-9848-4a92-8a17-a3813abe2a70.png' },
+  { name: 'Kling Image O3',  url: 'https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/d42cf8b4-5d00-4f19-bac0-1d29177002cf.png' },
+  { name: 'Ideogram V3',     url: 'https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/3119b79b-7db3-4d9c-9fd0-fd6049d5915e.png' },
+  { name: 'Stable Ultra',    url: 'https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/dac86df7-b583-4d62-beea-b79578edabc7.png' },
+  { name: 'GPT Image 1.5',   url: 'https://images.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/generated-images/65f05d0c-38cd-475e-a132-09ac0e39d3f7.png' },
+];
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+
+// Offscreen canvases — one per cell, images pre-drawn at 200×200
+const offscreens = MODELS.map(() => {
+  const oc = document.createElement('canvas');
+  oc.width = CELL_W; oc.height = CELL_H;
+  return oc;
+});
+
+// Pre-compute per-pixel reveal order for each cell (float 0–1)
+// revealOrder[cellIdx] = Float32Array of CELL_W * CELL_H values
+const revealOrder = MODELS.map(() => {
+  const arr = new Float32Array(CELL_W * CELL_H);
+  for (let i = 0; i < arr.length; i++) arr[i] = Math.random();
+  return arr;
+});
+
+// Cache offscreen pixel data per cell (read once after load)
+const imagePixels = new Array(MODELS.length).fill(null);
+
+let loadedCount = 0;
+const totalImages = MODELS.length;
+
+function onImageLoaded(idx, img) {
+  const oc = offscreens[idx];
+  const octx = oc.getContext('2d');
+  octx.drawImage(img, 0, 0, CELL_W, CELL_H);
+  imagePixels[idx] = octx.getImageData(0, 0, CELL_W, CELL_H).data;
+  loadedCount++;
+  if (loadedCount === totalImages) startAnimation();
+}
+
+MODELS.forEach((m, idx) => {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => onImageLoaded(idx, img);
+  img.onerror = () => {
+    // On error, fill with a solid placeholder color so animation still works
+    const oc = offscreens[idx];
+    const octx = oc.getContext('2d');
+    const hues = [270, 30, 120, 200, 340, 60];
+    octx.fillStyle = `hsl(${hues[idx]}, 60%, 50%)`;
+    octx.fillRect(0, 0, CELL_W, CELL_H);
+    octx.fillStyle = 'rgba(255,255,255,0.85)';
+    octx.font = 'bold 13px sans-serif';
+    octx.textAlign = 'center';
+    octx.fillText(m.name, CELL_W / 2, CELL_H / 2);
+    imagePixels[idx] = octx.getImageData(0, 0, CELL_W, CELL_H).data;
+    loadedCount++;
+    if (loadedCount === totalImages) startAnimation();
+  };
+  img.src = m.src || m.url;
+});
+
+// Show loading state
+ctx.fillStyle = '#111';
+ctx.fillRect(0, 0, W, H);
+ctx.fillStyle = '#555';
+ctx.font = '16px sans-serif';
+ctx.textAlign = 'center';
+ctx.fillText('Loading images…', W / 2, H / 2);
+
+// Noise buffer (regenerated each frame for cells not yet revealed)
+const frameImageData = ctx.createImageData(W, H);
+const buf = frameImageData.data;
+
+let animStart = null;
+
+function easeInOut(t) {
+  return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+}
+
+function drawFrame(ts) {
+  if (!animStart) animStart = ts;
+  const elapsed = (ts - animStart) % CYCLE;
+
+  // progress: 0→1 during REVEAL_DUR, stays 1 during hold, fades during FADE_DUR
+  let progress, noiseAlpha;
+  if (elapsed < REVEAL_DUR) {
+    progress   = easeInOut(elapsed / REVEAL_DUR);
+    noiseAlpha = 1;  // not used in fade phase
+  } else if (elapsed < REVEAL_DUR + HOLD_DUR) {
+    progress   = 1;
+    noiseAlpha = 1;
+  } else {
+    progress   = 1;
+    // fade back to noise
+    noiseAlpha = 1 - (elapsed - REVEAL_DUR - HOLD_DUR) / FADE_DUR;
+  }
+
+  // Build full canvas pixel-by-pixel
+  for (let cellIdx = 0; cellIdx < MODELS.length; cellIdx++) {
+    const cellCol = cellIdx % COLS;
+    const cellRow = Math.floor(cellIdx / COLS);
+    const originX = cellCol * CELL_W;
+    const originY = cellRow * CELL_H;
+    const imgData  = imagePixels[cellIdx];
+    const revOrd   = revealOrder[cellIdx];
+
+    for (let py = 0; py < CELL_H; py++) {
+      for (let px = 0; px < CELL_W; px++) {
+        const pixelIdx  = py * CELL_W + px;
+        const canvasX   = originX + px;
+        const canvasY   = originY + py;
+        const bufOffset = (canvasY * W + canvasX) * 4;
+
+        const revealed = progress > revOrd[pixelIdx];
+
+        if (revealed && noiseAlpha >= 1) {
+          // Fully revealed — use image pixel
+          const srcOff = pixelIdx * 4;
+          buf[bufOffset]     = imgData[srcOff];
+          buf[bufOffset + 1] = imgData[srcOff + 1];
+          buf[bufOffset + 2] = imgData[srcOff + 2];
+          buf[bufOffset + 3] = 255;
+        } else if (revealed && noiseAlpha < 1) {
+          // Fade phase: blend image → noise
+          const srcOff = pixelIdx * 4;
+          const nr = Math.random() * 255 | 0;
+          const ng = Math.random() * 255 | 0;
+          const nb = Math.random() * 255 | 0;
+          const a = noiseAlpha;
+          buf[bufOffset]     = imgData[srcOff]     * a + nr * (1 - a) | 0;
+          buf[bufOffset + 1] = imgData[srcOff + 1] * a + ng * (1 - a) | 0;
+          buf[bufOffset + 2] = imgData[srcOff + 2] * a + nb * (1 - a) | 0;
+          buf[bufOffset + 3] = 255;
+        } else {
+          // Not yet revealed — pure noise
+          buf[bufOffset]     = Math.random() * 255 | 0;
+          buf[bufOffset + 1] = Math.random() * 255 | 0;
+          buf[bufOffset + 2] = Math.random() * 255 | 0;
+          buf[bufOffset + 3] = 255;
+        }
+      }
+    }
+  }
+
+  ctx.putImageData(frameImageData, 0, 0);
+
+  // Draw model name labels (subtle, bottom of each cell)
+  ctx.font = 'bold 11px sans-serif';
+  ctx.textAlign = 'center';
+  MODELS.forEach((m, cellIdx) => {
+    const cellCol = cellIdx % COLS;
+    const cellRow = Math.floor(cellIdx / COLS);
+    const cx = cellCol * CELL_W + CELL_W / 2;
+    const cy = (cellRow + 1) * CELL_H - 8;
+    const labelAlpha = Math.min(progress * 3, 1) * noiseAlpha;
+    if (labelAlpha > 0) {
+      ctx.fillStyle = `rgba(0,0,0,${0.45 * labelAlpha})`;
+      ctx.fillRect(cellCol * CELL_W, (cellRow + 1) * CELL_H - 22, CELL_W, 22);
+      ctx.fillStyle = `rgba(255,255,255,${labelAlpha})`;
+      ctx.fillText(m.name, cx, cy);
+    }
+  });
+
+  requestAnimationFrame(drawFrame);
+}
+
+function startAnimation() {
+  requestAnimationFrame(drawFrame);
+}
+</script>
+</body>
+</html>
