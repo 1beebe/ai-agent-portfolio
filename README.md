@@ -32,7 +32,7 @@ My work focuses on **customer education, partner enablement, and applied AI for 
 - [AI Image Model Comparison](https://1beebe.github.io/ai-agent-portfolio/image-model-comparison/)
   → A MindStudio workflow that runs 6 image generation models in parallel against the same prompt, then displays results side-by-side for direct comparison. Built to answer the question: *which model actually performs best for a given use case?*
 
-  **How it works:** A user submits a rough text prompt → an LLM step enhances it into a high-quality image generation prompt → two parallel execution groups fire all 6 models simultaneously (Gemini 3 Pro Image, Flux Pro 2, Kling Image O3, Ideogram V3, Stable Image Ultra, GPT Image 1.5) → alt text is generated for each output → results are presented in a custom comparison interface. Includes metered billing per run and PDF export of the comparison asset.
+  **How it works:** A user submits a rough text prompt → an LLM step enhances it into a high-quality image generation prompt → two parallel execution groups fire all 6 models simultaneously (Gemini 3 Pro Image, Flux Pro 2, Kling Image O3, Ideogram V3, Stable Image Ultra, GPT Image 1.5) → alt text is generated for each output → a custom frontend asset is generated to render the results → all 6 images are displayed side-by-side in a comparison interface. Includes metered billing per run.
 
   **Models compared:** Gemini 3 Pro Image · Flux Pro 2 · Kling Image O3 · Ideogram V3 · Stable Image Ultra · GPT Image 1.5
 
