@@ -34,7 +34,7 @@ The result? Wasted licenses, low adoption, frustrated teams, and unrealized prod
 
 ---
 
-## 📂 Portfolio: AI Workflows Built to Teach
+## 📂 Portfolio: AI Workflows & Agents Built to Teach
 
 **Each project here demonstrates both technical capability AND instructional design thinking.**
 
