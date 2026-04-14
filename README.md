@@ -1,5 +1,4 @@
-
-# AI Agent & Automation Portfolio
+# AI Agent, Automation & Enablement Portfolio
 
 **Building AI workflows that are functional, transparent, and actually teachable.**
 
@@ -9,7 +8,7 @@
 
 **AI tools are powerful, but most implementations are either too simplistic to be useful or too complex to understand and maintain.**
 
-I build AI agents and workflows that bridge this gap — creating solutions that are:
+I build AI agents, workflows, and enablement tools that bridge this gap — creating solutions that are:
 - **Functional** → Actually solve real problems in education, content workflows, and research
 - **Transparent** → Documented prompts and logic you can learn from and adapt
 - **Practical** → Production-ready examples with real inputs/outputs, not just demos
@@ -39,6 +38,13 @@ My work focuses on **customer education, partner enablement, and applied AI for 
   **Live gallery outputs** (generated assets delivered to users):
   [Nausica Solarpunk](https://files.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/documents/47f1b8c0-948b-4bfb-abd3-fab5648788c9.html) · [D&D Mage](https://files.mindstudio-cdn.com/7fe9ee16-2915-46c6-9e9f-35bd0c9b0da5/documents/dfa77006-8a9f-440e-95ae-5f64a287c51d.html) · [Scandi Living Room](https://files.mindstudio-cdn.com/42728a5f-5026-4cab-a436-ca9b80d78412/documents/7d60f2c3-6045-48d5-84e3-376259254624.html)
 
+- [AI Prompt Library](https://1beebe.github.io/ai-prompt-library/) · [repo](https://github.com/1beebe/ai-prompt-library)
+  → A deployable, interactive prompt library for B2B teams — 55 copy-paste-ready AI prompts organized by department (Sales, CS, Marketing, HR, Finance, Leadership, and more). Single self-contained HTML file, no build step, works with any AI assistant.
+
+  **How it works:** Built from a client engagement as a deliverable, then generalized into a reusable template. A project brief went to Claude Code, which generated the full app — filters, copy buttons, cards — through iterative prompting. Output was then reviewed by prompting Claude Code to evaluate from the perspective of a CEO, COO, and UX reviewer before final QA.
+
+  **[Live demo →](https://1beebe.github.io/ai-prompt-library/)**
+
 ---
 
 ## 🏛️ Related Work
@@ -48,7 +54,7 @@ My work focuses on **customer education, partner enablement, and applied AI for 
 
 ---
 
-## 📖 What You’ll Find in Each Repo
+## 📖 What You'll Find in Each Repo
 Each project repo contains:
 - **README.md** → overview, features, outcomes, limitations  
 - **/assets** → screenshots, demo GIFs, diagrams  
@@ -60,4 +66,3 @@ Each project repo contains:
 ## 💬 Want to Connect?
 Interested in collaborating, learning more about a specific project, or discussing AI in education/enablement?  
 📩 [Book a chat](https://calendly.com/ligaya-b/chat)
-
