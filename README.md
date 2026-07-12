@@ -25,9 +25,6 @@ My work focuses on **customer education, partner enablement, and applied AI for 
 - [Analytics Buddy](https://github.com/1beebe/analytics-buddy)
   → Browser extension + MindStudio workflow for personal social media analytics. Grab analytics from a social media platform, update your spreadsheet, and return actionable insights.
 
-- [Lakoff Lens (Rhetoric & Framing Analyzer)](https://github.com/1beebe/lakoff-lens)
-  → Prototype agent that tags sentiment and metaphorical framing in political text, inspired by George Lakoff. Live agent available.
-
 - [AI Image Model Comparison](https://1beebe.github.io/ai-agent-portfolio/image-model-comparison/)
   → A MindStudio workflow that runs 6 image generation models in parallel against the same prompt and delivers a stunning visual comparison — all from a single text input. My first vibe-coded build, and proof that no-code AI orchestration can produce genuinely sophisticated results.
 
@@ -44,6 +41,18 @@ My work focuses on **customer education, partner enablement, and applied AI for 
   **How it works:** Built from a client engagement as a deliverable, then generalized into a reusable template. A project brief went to Claude Code, which generated the full app — filters, copy buttons, cards — through iterative prompting. Output was then reviewed by prompting Claude Code to evaluate from the perspective of a CEO, COO, and UX reviewer before final QA.
 
   **[Live demo →](https://1beebe.github.io/ai-prompt-library/)**
+
+- [Daily Product Pulse](https://github.com/1beebe/daily-product-pulse)
+  → A Claude Code skill that queries a product's database(s) every morning and posts a formatted health, activity, and billing snapshot to Slack — activity trends, new revenue, and a "heads up" list of trials about to lapse or power users who haven't converted.
+
+  **How it works:** Generalized from a live daily reporting skill built for one of my own products. Anonymized for this portfolio — real database IDs, Slack channel, staff accounts, and revenue figures replaced with config placeholders and fake sample data — so the pattern (parallel multi-database queries, staff-account filtering, churn/expansion triage) is reusable without exposing the underlying business.
+
+- [Beebe Qualitative Skills](https://github.com/1beebe/beebe-qualitative-skills)
+  → Two Claude Code skills for LLM-assisted qualitative research: a QualiGPT-style thematic analysis skill, and a policy-framing analysis skill built on the research methodology of my father, Dr. James Beebe — an anthropologist and USAID Foreign Service Officer whose unfinished study on U.S. foreign assistance to South Africa I'm completing.
+
+  **How it works:** The two skills run as one iterative loop — inductive discovery (qualigpt surfaces themes from a document corpus) feeds a researcher-curated codebook, which then drives deductive framing analysis (actor-attributed statements, a conceptual-metaphor register, frame-evolution tracking) as NVivo-importable output.
+
+  **Origin story:** This is the third build in a five-month arc. [Lakoff Lens](https://github.com/1beebe/lakoff-lens) (Jan 2026) was the first attempt — a prototype exploring sentiment and metaphorical framing, aimed at my father's methodology from the start but not yet capable of running it. [Document Processing & Archival Agent](https://github.com/1beebe/document-archivist) came next, building the intake pipeline that turns scanned archive documents into clean, indexed text. This skills repo is the version that can actually run his method on his own archive.
 
 ---
 
