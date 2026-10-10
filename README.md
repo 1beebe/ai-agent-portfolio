@@ -74,6 +74,12 @@ How I approach AI building and enablement, in priority order:
 
   **Origin story:** This is the third build in a nine-month arc. [Lakoff Lens](https://github.com/1beebe/lakoff-lens) (Oct 2025) was the first attempt: a prototype exploring sentiment and metaphorical framing, aimed at my father's methodology from the start but not yet capable of running it. [Document Processing & Archival Agent](https://github.com/1beebe/document-archivist) (Jan 2026) came next, building the intake pipeline that turns scanned archive documents into clean, indexed text. This skills repo is the version that can actually run his method on his own archive.
 
+
+- [Marble Descent](https://1beebe.github.io/marble-descent/) · [case study](https://github.com/1beebe/marble-descent#readme) · *Oct 2026*
+  → A tilt-to-roll phone game inspired by 1984's Marble Madness, built twice with Claude. V1 used an AI-written brief, four design subagents, and an afternoon of fixes, and produced one small level. V2 used a five-sentence prompt and produced six courses, a bubble-level onboarding, and a game Boris Cherny called "pretty fun."
+
+  **How it works:** One self-contained HTML file, no libraries. The phone's motion sensors steer the marble, a heightmap gives each course real slopes and drops, and keyboard and drag controls cover desktop and the Claude artifact viewer. The [case study](https://github.com/1beebe/marble-descent#readme) compares both builds, and it's principle 4 in action: more process and more tokens did not mean a better result.
+
 ---
 
 ## 🏛️ Related Work
