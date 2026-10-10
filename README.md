@@ -74,11 +74,12 @@ How I approach AI building and enablement, in priority order:
 
   **Origin story:** This is the third build in a nine-month arc. [Lakoff Lens](https://github.com/1beebe/lakoff-lens) (Oct 2025) was the first attempt: a prototype exploring sentiment and metaphorical framing, aimed at my father's methodology from the start but not yet capable of running it. [Document Processing & Archival Agent](https://github.com/1beebe/document-archivist) (Jan 2026) came next, building the intake pipeline that turns scanned archive documents into clean, indexed text. This skills repo is the version that can actually run his method on his own archive.
 
+- [Marble Descent](https://1beebe.github.io/marble-descent/) · [repo](https://github.com/1beebe/marble-descent) · *Oct 2026*
+  → A mobile Marble Madness-style tilt game, built twice with Claude. The short prompt won, and Boris Cherny played V2 and replied, "Oh wow this is pretty fun."
 
-- [Marble Descent](https://1beebe.github.io/marble-descent/) · [case study](https://github.com/1beebe/marble-descent#readme) · *Oct 2026*
-  → A tilt-to-roll phone game inspired by 1984's Marble Madness, built twice with Claude. V1 used an AI-written brief, four design subagents, and an afternoon of fixes, and produced one small level. V2 used a five-sentence prompt and produced six courses, a bubble-level onboarding, and a game Boris Cherny called "pretty fun."
+  **How it works:** I built the same game two ways. V1 (Opus 4.8, Sep 6, 2026) used a long brief of about 400 words and four design subagents. V2 (Opus 5.5, Oct 7, 2026) used a short Boris Cherny-style prompt of about 70 words that described the player experience, then let the model cook. V2 onboarding is a bubble level, a practice round, and a way to recalibrate, shaped by friends who played V1 and found the controls confusing. Phone tilt works from the [GitHub Pages](https://1beebe.github.io/marble-descent/) build.
 
-  **How it works:** One self-contained HTML file, no libraries. The phone's motion sensors steer the marble, a heightmap gives each course real slopes and drops, and keyboard and drag controls cover desktop and the Claude artifact viewer. The [case study](https://github.com/1beebe/marble-descent#readme) compares both builds, and it's principle 4 in action: more process and more tokens did not mean a better result.
+  **What came out:** V1 was one small grid level, kind of mid. V2 is six courses you can play. Less process produced the better playable result. V1 over-engineered the process, and V2 described the player experience. Compare V1: [play](https://1beebe.github.io/marble-madness-ode/) · [repo](https://github.com/1beebe/marble-madness-ode). The full story is the [case study](https://github.com/1beebe/marble-descent#readme).
 
 ---
 
